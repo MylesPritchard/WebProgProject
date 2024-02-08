@@ -54,7 +54,7 @@ namespace Hospital_Management_System.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DoctorID,Name")] Doctor doctor)
+        public async Task<IActionResult> Create([Bind("Name, Email, Address, PhoneNumber, DateOfBirth, Office")] Doctor doctor)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Hospital_Management_System.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DoctorID,Name")] Doctor doctor)
+        public async Task<IActionResult> Edit(int id, [Bind("DoctorID,Name, Email, Address, PhoneNumber, DateOfBirth, Office")] Doctor doctor)
         {
             if (id != doctor.DoctorID)
             {

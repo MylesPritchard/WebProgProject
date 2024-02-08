@@ -16,12 +16,35 @@
 <table class="table">
     <thead>
         <tr>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfVisit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Complaint)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doctor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patient)
+            </th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                    @Html.DisplayFor(modelItem => item.DateOfVisit)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Complaint)
+            </td>
+            <td>
+                    @Html.ActionLink(item.Doctor?.Name, "Details", "Doctors", new { id = item.Doctor.DoctorID })
+            </td>
+            <td>
+                    @Html.ActionLink(item.Patient?.Name, "Details", "Patients", new { id = item.Patient.PatientID })
+            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.VisitID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.VisitID">Details</a> |

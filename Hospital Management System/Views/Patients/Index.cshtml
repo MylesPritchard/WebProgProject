@@ -56,7 +56,7 @@
                 @Html.DisplayFor(modelItem => item.DateOfBirth)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Doctor.DoctorID)
+                    @Html.ActionLink(item.Doctor?.Name, "Details", "Doctors", new { id = item.Doctor.DoctorID })
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.PatientID">Edit</a> |

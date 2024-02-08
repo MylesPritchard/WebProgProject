@@ -10,10 +10,10 @@ namespace Hospital_Management_System.Models
         public int VisitID { get; set; }
         [Display(Name = "Date of Visist")]
         public string DateOfVisit { get; set; }
-        public string Complaint { get; set; }
+        public string? Complaint { get; set; }
         public virtual Doctor? Doctor { get; set; }
-        public int? DoctorId { get; set; }
+        public int? DoctorID { get; set; }
         public virtual Patient? Patient { get; set; }
-        public int? PatientId { get; set; }
+        public int? PatientID { get; set; }
     }
 }
