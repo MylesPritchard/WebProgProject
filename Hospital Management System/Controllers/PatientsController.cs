@@ -20,10 +20,21 @@ namespace Hospital_Management_System.Controllers
         }
 
         // GET: Patients
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string SearchBy, string search)
         {
             var hospital_Management_SystemContext = _context.Patient.Include(p => p.Doctor);
-            return View(await hospital_Management_SystemContext.ToListAsync());
+            
+            {
+                if (SearchBy == "Name")
+                {
+                    return View(await hospital_Management_SystemContext.Where(x => x.Name.StartsWith(search) || search == null).ToListAsync());
+                }
+                else
+                {
+                    return View(await hospital_Management_SystemContext.Where(x => x.Email.StartsWith(search) || search == null).ToListAsync());
+                }
+            }
+            
         }
 
         // GET: Patients/Details/5

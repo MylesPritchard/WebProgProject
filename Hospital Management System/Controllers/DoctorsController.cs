@@ -20,9 +20,16 @@ namespace Hospital_Management_System.Controllers
         }
 
         // GET: Doctors
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string SearchBy, string search)
         {
-            return View(await _context.Doctor.ToListAsync());
+            if (SearchBy == "Name")
+            {
+                return View(await _context.Doctor.Where(x => x.Name.StartsWith(search)|| search == null).ToListAsync());
+            }
+            else
+            {
+                return View(await _context.Doctor.Where(x => x.Office.StartsWith(search) || search == null).ToListAsync());
+            }
         }
 
         // GET: Doctors/Details/5
@@ -148,7 +155,7 @@ namespace Hospital_Management_System.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        
         private bool DoctorExists(int id)
         {
             return _context.Doctor.Any(e => e.DoctorID == id);
