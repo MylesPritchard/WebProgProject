@@ -20,6 +20,12 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Admitted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discharged)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Email)
             </th>
             <th>
@@ -42,6 +48,12 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Admitted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discharged)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)

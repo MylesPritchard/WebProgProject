@@ -18,5 +18,9 @@ namespace Hospital_Management_System.Models
         [Display(Name = "Doctor ID")]
         public int? DoctorID { get; set; } //a forign key must be nullable
         public virtual Doctor? Doctor { get; set; } //nullable
+        [DataType(DataType.Date)]
+        public DateTime? Admitted { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? Discharged { get; set; }
     }
 }

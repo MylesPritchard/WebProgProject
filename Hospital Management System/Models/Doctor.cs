@@ -16,5 +16,6 @@ namespace Hospital_Management_System.Models
         public string? DateOfBirth { get; set; }
         public string Office {  get; set; }
         List<Patient> Patients { get; set; }
+        public string? Type {  get; set; }
     }
 }

@@ -8,7 +8,9 @@ namespace Hospital_Management_System.Models
     {
         [Display(Name = "Visit ID")]
         public int VisitID { get; set; }
-        [Display(Name = "Date of Visist")]
+        [Display(Name = "Date of Visit")]
+      /*[DataType(DataType.Date)]
+        public DateTime DateOfVisit { get; set; }*/
         public string DateOfVisit { get; set; }
         public string? Complaint { get; set; }
         public virtual Doctor? Doctor { get; set; }
