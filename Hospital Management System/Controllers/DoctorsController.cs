@@ -52,6 +52,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         // GET: Doctors/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -62,7 +63,7 @@ namespace Hospital_Management_System.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-/*        [Authorize]*/
+        [Authorize]
         public async Task<IActionResult> Create([Bind("Name, Email, Address, PhoneNumber, DateOfBirth, Office, Type")] Doctor doctor)
         {
             if (ModelState.IsValid)
@@ -75,6 +76,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         // GET: Doctors/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -95,6 +97,7 @@ namespace Hospital_Management_System.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("DoctorID,Name, Email, Address, PhoneNumber, DateOfBirth, Office, Type")] Doctor doctor)
         {
             if (id != doctor.DoctorID)
@@ -126,6 +129,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         // GET: Doctors/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -146,6 +150,7 @@ namespace Hospital_Management_System.Controllers
         // POST: Doctors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var doctor = await _context.Doctor.FindAsync(id);
@@ -157,6 +162,7 @@ namespace Hospital_Management_System.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
         
         private bool DoctorExists(int id)
         {

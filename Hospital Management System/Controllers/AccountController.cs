@@ -2,125 +2,118 @@
 using Hospital_Management_System.Models;
 using Microsoft.AspNetCore.Mvc;
 
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+
 namespace Hospital_Management_System.Controllers
 {
     public class AccountController : Controller
     {
-        // fixes context mismatch issue?
         private readonly Hospital_Management_SystemContext _context;
-        public AccountController(Hospital_Management_SystemContext context)
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
+
+        public AccountController(Hospital_Management_SystemContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
-        [HttpGet] //inferred
+        // you can use Index to show a list of registered users if needed
+        public ActionResult Index()
+        {
+            return View(_context.UserAccount.ToList());
+        }
+
+        [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
-
         [HttpPost]
-        public async Task<IActionResult> Register(
+        public IActionResult Register(
             [Bind("UserName, FirstName, LastName, Email, Password, ConfirmPassword")] UserAccount newUserAccount
         )
         {
             if(ModelState.IsValid)
             {
-                /*UserContext db = new UserContext();
-                db.UserAccounts.Add(userAccount);
-                db.SaveChanges();*/
+                _context.Add(newUserAccount); //Adds new account to database
+                _context.SaveChangesAsync();
 
-                _context.Add(newUserAccount);
-                await _context.SaveChangesAsync();
+                /*//Add new account to user manager
+                var user = new IdentityUser { UserName = newUserAccount.UserName, Email = newUserAccount.Email };
+                var result = _userManager.CreateAsync(user, newUserAccount.Password);*/
 
                 ModelState.Clear();
                 ViewBag.Message = newUserAccount.FirstName + " " + newUserAccount.LastName + " successfully registered.";
+
+                /*_signInManager.SignInAsync(user, isPersistent: false); //Sign in new account using signinmanager*/
             }
             return View();
         }
 
 
-/*        public JsonResult IsUserNameAvailable(string UserName)
+/*        public JsonResult IsUserNameAvailable(string UserName) //idk where to get JsonRequestBehavior from
         {
             return Json(!_context.UserAccount.Any(x => x.UserName == UserName), JsonRequestBehavior.AllowGet);
         }*/
 
 
-        [HttpGet] //inferred
+        [HttpGet]
         public IActionResult Login()
+        {
+            /*if(_signInManager.IsSignedIn(User)) //if user is already signed in, push them away from this page
+            {
+                return RedirectToAction("Index", "Home");
+            }*/
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login([Bind("UserName, Password")] UserAccount loginCreds)
+        {
+            var user = _context.UserAccount.Where(u => u.UserName == loginCreds.UserName &&
+                                                       u.Password == loginCreds.Password
+                                                 ).FirstOrDefault();
+            //^retrives user from database if they exist
+
+            if (user!=null) //If user exists
+            {
+                /*var result = await _signInManager.PasswordSignInAsync(user.UserName,user.Password, true, lockoutOnFailure: true);*/
+                //^ use SignInManager to sign in user
+
+                /*if (result.Succeeded) //if sign in succeeds send them to celebration page
+                {
+                    return RedirectToAction("LoginSuccessful");
+                }
+                return View();*/
+                return RedirectToAction("LoginSuccessful");
+            }
+            else //Says login faile and keeps them on page
+            {
+                ViewBag.Message = "Invalid Username or Password";
+                return View();
+            }            
+        }
+
+        public IActionResult LoginSuccessful() //Tells the user that they signed in
         {
             return View();
         }
 
 
-        [HttpPost]
-        public IActionResult Login(
-            [Bind("UserName, Password")] UserAccount loginCreds
-        )
+        public async Task<IActionResult> Logout() //Preforms the signout action and returns user to homepage
         {
-            /*UserContext db = new UserContext();
+            /*await _signInManager.SignOutAsync();*/
 
-            var user = db.UserAccounts.Where(u => u.UserName == userAccount.UserName &&
-                                                  u.Password == userAccount.Password
-                                            ).FirstOrDefault();*/
-
-            var user = _context.UserAccount.Where(u => u.UserName == loginCreds.UserName &&
-                                                             u.Password == loginCreds.Password
-                                                       ).FirstOrDefault();
-
-            if (user!=null)
-            {
-/*                Session["userID"] = user.UserID.ToString();
-                Session["userName"] = user.UserName.ToString();*/
-/*                FormsAuthentication.SetAuthCookie(user.UserName, false);*/
-                return RedirectToAction("LoggedIn");
-                /*ViewBag.message = "Login Success";
-                return View("LoginSuccess");*/
-            }
-            else
-            {
-                ViewBag.Message = "Invalid Username or Password";
-                /*ModelState.AddModelError("", "Username or password is incorrect.");*/
-                return View();
-                /*ViewBag.message = "Login Failed";
-                return View("Login");*/
-            }            
-        }
-
-
-        /*        public IActionResult LoggedIn()
-                {
-                    if(Session["userId"]!=null)
-                    {
-                        return View();
-                    }
-                    else
-                    {
-                        return RedirectToAction("Login");
-                    }
-                }*/
-
-
-        public IActionResult Logout()
-        {
-/*            if (Session["userId"] != null)
-            {
-                Session.Abandon();
-            }*/
-/*            return RedirectToAction("Login");*/
-/*            FormsAuthentication.SignOut();*/
             return RedirectToAction("Index", "Home");
-        }
-
-
-        // you can use Index to show a list of registered users if needed
-        public ActionResult Index()
-        {
-            /*UserContext db = new Hospital_Management_SystemContext();
-
-            return View(db.UserAccounts.ToList());*/
-            return View(_context.UserAccount.ToList());
         }
     }
 }

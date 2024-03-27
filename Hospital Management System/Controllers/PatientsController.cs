@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Hospital_Management_System.Data;
 using Hospital_Management_System.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -57,6 +58,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         // GET: Patients/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["DoctorID"] = new SelectList(_context.Doctor, "DoctorID", "DoctorID");
@@ -68,6 +70,7 @@ namespace Hospital_Management_System.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("Name,Email,Address,PhoneNumber,DateOfBirth,DoctorID,Admitted,Discharged")] Patient patient)
         {
             if (ModelState.IsValid)
@@ -81,6 +84,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         // GET: Patients/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -102,6 +106,7 @@ namespace Hospital_Management_System.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("PatientID,Name,Email,Address,PhoneNumber,DateOfBirth,DoctorID,Admitted,Discharged")] Patient patient)
         {
             if (id != patient.PatientID)
@@ -134,6 +139,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         // GET: Patients/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -155,6 +161,7 @@ namespace Hospital_Management_System.Controllers
         // POST: Patients/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var patient = await _context.Patient.FindAsync(id);

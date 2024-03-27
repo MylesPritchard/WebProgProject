@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Hospital_Management_System.Data;
 using Hospital_Management_System.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -47,6 +48,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         // GET: Visits/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["DoctorID"] = new SelectList(_context.Doctor, "DoctorID", "DoctorID");
@@ -73,6 +75,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         // GET: Visits/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -95,6 +98,7 @@ namespace Hospital_Management_System.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("VisitID, DateOfVisit, Complaint, DoctorID, PatientID")] Visit visit)
         {
             if (id != visit.VisitID)
@@ -129,6 +133,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         // GET: Visits/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -151,6 +156,7 @@ namespace Hospital_Management_System.Controllers
         // POST: Visits/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var visit = await _context.Visit.FindAsync(id);
