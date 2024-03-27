@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Hospital_Management_System.Models.UserAccount>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+@Html.ActionLink("Home", "", "home") |
+@Html.ActionLink("Doctors", "", "doctors") |
+@Html.ActionLink("Patients", "", "patients") |
+@Html.ActionLink("Visits", "", "visits")
+@* <p>
+    <a asp-action="Create">Create New</a>
+</p> *@
+
+<div style="text-align:right">
+    @Html.ActionLink("Logout", "Logout")
+</div>
+
+<div>
+    @Html.ActionLink("Login", "Login")
+    @Html.ActionLink("Register", "Register")
+</div>
+
+
+@using(Html.BeginForm("Index", "Account", FormMethod.Get))
+{
+    <b>Search By:</b>
+    @Html.RadioButton("SearchBy", "UserName", true)<text>Username</text>
+    @Html.RadioButton("SearchBy", "Email")<text>Email</text>
+    <br/>
+    @Html.TextBox("search")<input type="submit" value="Search" />
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+@*                 <a asp-action="Edit" asp-route-id="@item.UserID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.UserID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.UserID">Delete</a> *@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

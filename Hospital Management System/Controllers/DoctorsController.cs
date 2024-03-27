@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Hospital_Management_System.Data;
 using Hospital_Management_System.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -61,6 +62,7 @@ namespace Hospital_Management_System.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+/*        [Authorize]*/
         public async Task<IActionResult> Create([Bind("Name, Email, Address, PhoneNumber, DateOfBirth, Office, Type")] Doctor doctor)
         {
             if (ModelState.IsValid)
