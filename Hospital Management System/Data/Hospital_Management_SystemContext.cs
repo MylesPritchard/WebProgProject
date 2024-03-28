@@ -13,7 +13,7 @@ namespace Hospital_Management_System.Data
             : base(options)
         {
         }
-
+        public DbSet<Hospital_Management_System.Models.UserAccount> UserAccount { get; set; } = default!;
         public DbSet<Hospital_Management_System.Models.Doctor> Doctor { get; set; } = default!;
         public DbSet<Hospital_Management_System.Models.Patient> Patient { get; set; } = default!;
         public DbSet<Hospital_Management_System.Models.Visit> Visit { get; set; } = default!;
