@@ -1,24 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using Hospital_Management_System.Data;
 using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<Hospital_Management_SystemContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Hospital_Management_SystemContext") ?? throw new InvalidOperationException("Connection string 'Hospital_Management_SystemContext' not found.")));
-/*NEW*/
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<Hospital_Management_SystemContext>();
+builder.Services.AddRazorPages();
 builder.Services.Configure<IdentityOptions>(options =>
 {
     // Password settings.
-    /*options.Password.RequireDigit = true;
+    options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireNonAlphanumeric = true;
     options.Password.RequireUppercase = true;
-    options.Password.RequiredLength = 6;
-    options.Password.RequiredUniqueChars = 1;*/
+    options.Password.RequiredLength = 3;
+    /*options.Password.RequiredUniqueChars = 1;*/
 
     // Lockout settings.
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
@@ -40,7 +40,6 @@ builder.Services.ConfigureApplicationCookie(options =>
     /*options.AccessDeniedPath = "/Account/AccessDenied";*/
     options.SlidingExpiration = true;
 });
-/*NEW*/
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -58,13 +57,15 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseRouting();
+app.UseRouting(); /*UseRouting, UseAuthentication, and UseAuthorization must be called in this specific order.*/
 
+app.UseAuthentication();
 app.UseAuthorization();
-app.UseAuthentication(); /*NEW*/
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 app.Run();
