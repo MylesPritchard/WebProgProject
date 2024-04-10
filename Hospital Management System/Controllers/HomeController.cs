@@ -13,17 +13,22 @@ namespace Hospital_Management_System.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index() //homepage
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Contact() //contact info
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		public IActionResult COVID() //covid-19 protocol
+		{
+			return View();
+		}
+
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

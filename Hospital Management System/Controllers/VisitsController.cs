@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Hospital_Management_System.Controllers
 {
+    [Authorize] //only authorized users can access these pages
     public class VisitsController : Controller
     {
         private readonly Hospital_Management_SystemContext _context;
@@ -23,7 +24,7 @@ namespace Hospital_Management_System.Controllers
         // GET: Visits
         public async Task<IActionResult> Index()
         {
-            var hospital_Management_SystemContext = _context.Visit.Include(p => p.Doctor).Include(p => p.Patient);
+            var hospital_Management_SystemContext = _context.Visit.Include(p => p.Doctor).Include(p => p.Patient); //connects doctor and patient to visit (so we can use name instead of id)
             return View(await hospital_Management_SystemContext.ToListAsync());
         }
 

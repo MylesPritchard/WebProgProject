@@ -4,11 +4,8 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-@Html.ActionLink("Home", "", "home") |
-@Html.ActionLink("Doctors", "", "doctors") |
-@Html.ActionLink("Patients", "", "patients") |
-@Html.ActionLink("Visits", "", "visits")
+<h1>@ViewData["Title"]</h1>
+@Html.Partial("_Links")
 
 <p>
     <a asp-action="Create">Create New</a>

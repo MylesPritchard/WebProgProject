@@ -1,15 +1,11 @@
 ﻿@model IEnumerable<Hospital_Management_System.Models.Doctor>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Physician Directory";
 }
 
-<h1>Index</h1>
-<img src="https://www.durhamradionews.com/wp-content/uploads/HOSPITAL-H1.jpg" alt="Logo Image" width="80" height="65">
-@Html.ActionLink("Home", "", "home") |
-@Html.ActionLink("Doctors", "", "doctors") |
-@Html.ActionLink("Patients", "", "patients") |
-@Html.ActionLink("Visits", "", "visits")
+<h1>@ViewData["Title"]</h1>
+@Html.Partial("_Links")
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -29,18 +25,21 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateOfBirth)
-            </th>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateOfBirth)
+                </th>
+            }
             <th>
                 @Html.DisplayNameFor(model => model.Office)
             </th>
@@ -56,18 +55,21 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateOfBirth)
-            </td>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
+            }
             <td>
                 @Html.DisplayFor(modelItem => item.Office)
             </td>
@@ -75,9 +77,19 @@
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.DoctorID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.DoctorID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.DoctorID">Delete</a>
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div>
+                        <a asp-action="Edit" asp-route-id="@item.DoctorID">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.DoctorID">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.DoctorID">Delete</a>
+                    </div>
+                } 
+                else
+                {
+                    <a asp-action="Details" asp-route-id="@item.DoctorID">Details</a>
+                }
             </td>
         </tr>
 }

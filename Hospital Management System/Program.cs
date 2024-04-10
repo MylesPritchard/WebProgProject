@@ -2,13 +2,16 @@ using Microsoft.EntityFrameworkCore;
 using Hospital_Management_System.Data;
 using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
+//connects system to database using connection string as defined in appsettings
 builder.Services.AddDbContext<Hospital_Management_SystemContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Hospital_Management_SystemContext") ?? throw new InvalidOperationException("Connection string 'Hospital_Management_SystemContext' not found.")));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+//attaches identityuser to database
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<Hospital_Management_SystemContext>();
+
 builder.Services.AddRazorPages();
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -18,7 +21,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireNonAlphanumeric = true;
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 3;
-    /*options.Password.RequiredUniqueChars = 1;*/
+    options.Password.RequiredUniqueChars = 1;
 
     // Lockout settings.
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
@@ -36,8 +39,8 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.HttpOnly = true;
     options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 
-    options.LoginPath = "/Account/Login";
-    /*options.AccessDeniedPath = "/Account/AccessDenied";*/
+    options.LoginPath = "/Identity/Account/Login"; //the path users get sent to if they try to open a auth-user only page, for example
+    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
     options.SlidingExpiration = true;
 });
 

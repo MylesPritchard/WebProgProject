@@ -9,6 +9,8 @@ namespace Hospital_Management_System.Models
         [Display(Name = "Visit ID")]
         public int VisitID { get; set; }
         [Display(Name = "Date of Visit")]
+        [Required(ErrorMessage = "Please input the date of the visit.")]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 8)]
       /*[DataType(DataType.Date)]
         public DateTime DateOfVisit { get; set; }*/
         public string DateOfVisit { get; set; }

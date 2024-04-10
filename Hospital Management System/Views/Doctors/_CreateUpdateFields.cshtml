@@ -1,0 +1,41 @@
+﻿@model Hospital_Management_System.Models.Doctor
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="form-group">
+    @Html.LabelFor(x => x.Name)
+    @Html.TextBoxFor(x => x.Name)
+    @Html.ValidationMessageFor(x => x.Name, "", new { @style = "color: red" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(x => x.Email)
+    @Html.TextBoxFor(x => x.Email)
+    @Html.ValidationMessageFor(x => x.Email, "", new { @style = "color: red" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(x => x.Address)
+    @Html.TextBoxFor(x => x.Address)
+    @Html.ValidationMessageFor(x => x.Address, "", new { @style = "color: red" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(x => x.PhoneNumber)
+    @Html.TextBoxFor(x => x.PhoneNumber)
+    @Html.ValidationMessageFor(x => x.PhoneNumber, "", new { @style = "color: red" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(x => x.DateOfBirth)
+    @Html.TextBoxFor(x => x.DateOfBirth)
+    @Html.ValidationMessageFor(x => x.DateOfBirth, "", new { @style = "color: red" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(x => x.Office)
+    @Html.TextBoxFor(x => x.Office)
+    @Html.ValidationMessageFor(x => x.Office, "", new { @style = "color: red" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(x => x.Type)
+    @Html.TextBoxFor(x => x.Type)
+    @Html.ValidationMessageFor(x => x.Type, "", new { @style = "color: red" })
+</div>
+<div class="form-group">
+    <input type="submit" value="Save" class="btn btn-primary" />
+</div>

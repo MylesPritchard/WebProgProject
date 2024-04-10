@@ -1,0 +1,11 @@
+﻿<img src="https://www.durhamradionews.com/wp-content/uploads/HOSPITAL-H1.jpg" alt="Logo Image" width="80" height="65">
+@Html.ActionLink("Home", "", "home") |
+@Html.ActionLink("Physician Directory", "", "doctors")
+@if (User.Identity.IsAuthenticated)
+{
+    <span>
+        |
+        @Html.ActionLink("Patients", "", "patients") |
+        @Html.ActionLink("Visits", "", "visits")
+    </span>
+}

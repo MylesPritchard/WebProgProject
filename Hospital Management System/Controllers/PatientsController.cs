@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Hospital_Management_System.Controllers
 {
+    [Authorize] //only authorized users can access these pages
     public class PatientsController : Controller
     {
         private readonly Hospital_Management_SystemContext _context;

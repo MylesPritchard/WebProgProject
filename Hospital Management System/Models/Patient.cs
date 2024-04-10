@@ -8,6 +8,8 @@ namespace Hospital_Management_System.Models
     {
         [Display(Name = "Patient ID")]
         public int PatientID { get; set; }
+        [Required(ErrorMessage = "Please enter the patient's name.")]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 2)]
         public string Name { get; set; }
         public string? Email { get; set; }
         public string? Address { get; set; }

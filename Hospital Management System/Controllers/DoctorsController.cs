@@ -20,6 +20,8 @@ namespace Hospital_Management_System.Controllers
             _context = context;
         }
 
+        //only doctor index and details are available to non-authorized users
+
         // GET: Doctors
         public async Task<IActionResult> Index(string SearchBy, string search)
         {
@@ -34,7 +36,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         // GET: Doctors/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id) //if doctor with id can be found, return doctor
         {
             if (id == null)
             {
@@ -43,6 +45,7 @@ namespace Hospital_Management_System.Controllers
 
             var doctor = await _context.Doctor
                 .FirstOrDefaultAsync(m => m.DoctorID == id);
+
             if (doctor == null)
             {
                 return NotFound();
@@ -64,7 +67,8 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("Name, Email, Address, PhoneNumber, DateOfBirth, Office, Type")] Doctor doctor)
+        public async Task<IActionResult> Create([Bind("Name, Email, Address, PhoneNumber, DateOfBirth, Office, Type")] Doctor doctor) 
+            //get values from post and add doctor obj to system if valid
         {
             if (ModelState.IsValid)
             {
@@ -99,6 +103,7 @@ namespace Hospital_Management_System.Controllers
         [ValidateAntiForgeryToken]
         [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("DoctorID,Name, Email, Address, PhoneNumber, DateOfBirth, Office, Type")] Doctor doctor)
+            //get values from post and edits existing doctor obj in system if valid
         {
             if (id != doctor.DoctorID)
             {
@@ -152,6 +157,7 @@ namespace Hospital_Management_System.Controllers
         [ValidateAntiForgeryToken]
         [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
+            //on action, deletes a doctor from system based on given id
         {
             var doctor = await _context.Doctor.FindAsync(id);
             if (doctor != null)
