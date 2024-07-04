@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hospital_Management_System.Migrations
 {
     [DbContext(typeof(Hospital_Management_SystemContext))]
-    [Migration("20240415124113_Final-Demo")]
-    partial class FinalDemo
+    [Migration("20240704182914_20240704_1_1_Migration")]
+    partial class _20240704_1_1_Migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,8 +38,8 @@ namespace Hospital_Management_System.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("DateOfBirth")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -120,10 +120,8 @@ namespace Hospital_Management_System.Migrations
                     b.Property<string>("Complaint")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DateOfVisit")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<DateTime>("DateOfVisit")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("DoctorID")
                         .HasColumnType("int");

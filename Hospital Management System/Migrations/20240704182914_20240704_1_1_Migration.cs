@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Hospital_Management_System.Migrations
 {
     /// <inheritdoc />
-    public partial class FinalDemo : Migration
+    public partial class _20240704_1_1_Migration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -60,7 +60,7 @@ namespace Hospital_Management_System.Migrations
                     Email = table.Column<string>(type: "nvarchar(360)", maxLength: 360, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DateOfBirth = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Office = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -185,7 +185,7 @@ namespace Hospital_Management_System.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateOfBirth = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DoctorID = table.Column<int>(type: "int", nullable: true),
                     Admitted = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Discharged = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -206,7 +206,7 @@ namespace Hospital_Management_System.Migrations
                 {
                     VisitID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DateOfVisit = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    DateOfVisit = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Complaint = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DoctorID = table.Column<int>(type: "int", nullable: true),
                     PatientID = table.Column<int>(type: "int", nullable: true)

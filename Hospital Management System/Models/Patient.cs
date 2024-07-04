@@ -16,7 +16,8 @@ namespace Hospital_Management_System.Models
         [Display(Name = "Phone Number")]
         public string? PhoneNumber { get; set; }
         [Display(Name = "Date of Birth")]
-        public string? DateOfBirth { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? DateOfBirth { get; set; }
         [Display(Name = "Doctor ID")]
         public int? DoctorID { get; set; } //a forign key must be nullable
         public virtual Doctor? Doctor { get; set; } //nullable

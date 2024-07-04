@@ -28,7 +28,8 @@ namespace Hospital_Management_System.Models
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Date of Birth")]
-        public string? DateOfBirth { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? DateOfBirth { get; set; }
 
         [Required(ErrorMessage = "Please enter the doctor's {0}.")]
         [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 2)]
