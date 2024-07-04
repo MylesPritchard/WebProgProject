@@ -1,0 +1,6 @@
+This is a Hospital Management System in ASP.NET MVC with C#.
+
+The application consists of 4 main pages: Home, Doctors, Patients, and Visits, among others.
+Doctors, Patients, and Visits are stored in a database with CRUD implemented (However, only Doctors can be viewed without being logged in).
+Search functionality by different criteria for Doctors and Patients.
+Account functionality.
